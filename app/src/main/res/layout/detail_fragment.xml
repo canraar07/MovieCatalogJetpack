@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailFragment">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:id="@+id/linear_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/parent_content_header"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/content_imageDetail"
+                    style="@style/Widget.MaterialComponents.CardView"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:id="@+id/image_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_android_template" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/title_movie_detail"
+                    android:fontFamily="@font/robotoslab_bold"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toEndOf="@+id/content_imageDetail"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Title" />
+
+                <TextView
+                    android:id="@+id/date_rilis_movie_detail"
+                    android:fontFamily="@font/robotoslab_regular"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@+id/content_imageDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/title_movie_detail"
+                    tools:text="Date Rilis" />
+
+                <TextView
+                    android:id="@+id/type_movie_detail"
+                    android:fontFamily="@font/robotoslab_regular"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/content_imageDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/date_rilis_movie_detail"
+                    tools:text="Type" />
+
+                <TextView
+                    android:id="@+id/rate_movie_detail"
+                    android:fontFamily="@font/robotoslab_regular"
+                    android:layout_width="190dp"
+                    android:textColor="@color/rate"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="12dp"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/content_imageDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/type_movie_detail"
+                    tools:text="Rate" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/overview_movie_detail"
+                android:layout_width="350dp"
+                android:fontFamily="@font/yrsa_regular"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:textSize="17sp"
+                app:layout_constraintTop_toBottomOf="@+id/parent_content_header"
+                tools:text="overview" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_loading_detail"
+        style="@style/SpinKitView.DoubleBounce"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
