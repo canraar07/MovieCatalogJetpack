@@ -44,7 +44,7 @@ class MainViewModel : ViewModel() {
                                             )
                                         )
                                     }
-                                    datalist.postValue(listItems)
+                                    setData(listItems)
                                 }
 
                             }
@@ -90,7 +90,7 @@ class MainViewModel : ViewModel() {
                                             )
                                         )
                                     }
-                                    datalist.postValue(listItems)
+                                    setData(listItems)
                                 }
 
                             }
@@ -106,6 +106,10 @@ class MainViewModel : ViewModel() {
 
                 }
             })
+    }
+
+    fun setData(listdata : ArrayList<DataItems>){
+        datalist.postValue(listdata)
     }
 
     fun getData(): LiveData<ArrayList<DataItems>> {

@@ -43,7 +43,7 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-        Thread.sleep(4000)
+        Thread.sleep(5000)
         itemMovie.perform(click())
 
         Thread.sleep(3000)
@@ -80,7 +80,7 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-        Thread.sleep(4000)
+        Thread.sleep(5000)
         itemTvshow.perform(click())
         Thread.sleep(5000)
     }
