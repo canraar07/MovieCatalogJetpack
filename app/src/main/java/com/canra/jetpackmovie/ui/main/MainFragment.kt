@@ -36,7 +36,7 @@ class MainFragment : Fragment() {
         dataDumy = DataDumy()
         adapter = AdapterMainActivity()
         adapter.dataClear()
-        adapter.setData(dataDumy.generateDataDumyListMovie())
+        adapter.setData(viewModel.getDumyMovie())
         adapter.notifyDataSetChanged()
         recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
         recyleviewmenu.adapter = adapter
@@ -55,11 +55,11 @@ class MainFragment : Fragment() {
                         when (it.position) {
                             0 -> {
                                 adapter.dataClear()
-                                adapter.setData(dataDumy.generateDataDumyListMovie())
+                                adapter.setData(viewModel.getDumyMovie())
                             }
                             1 -> {
                                 adapter.dataClear()
-                                adapter.setData(dataDumy.generateDataDumyListTV())
+                                adapter.setData(viewModel.getDumyTv())
 
                             }
                         }

@@ -52,8 +52,11 @@ class AdapterMainActivity : RecyclerView.Adapter<AdapterMainActivity.GridViewHol
                 text_template.text = data.title
                 itemView.setOnClickListener {
                     val bundle = Bundle()
-                   /* bundle.putString("id",data.id)
-                    bundle.putString("type",data.type)*/
+                    bundle.putString("img",data.img)
+                    bundle.putString("title",data.title)
+                    bundle.putString("overview",data.overview)
+                    bundle.putString("release_date",data.release_date)
+                    bundle.putString("vote_average",data.vote_average)
                     val intent = Intent(context,DetailActivity::class.java)
                     intent.putExtras(bundle)
                     context.startActivity(intent)
