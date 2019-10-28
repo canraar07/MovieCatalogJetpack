@@ -3,7 +3,6 @@ package com.canra.jetpackmovie
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.canra.jetpackmovie.ui.detail.DetailFragment
-import com.canra.jetpackmovie.util.DataPojoDetailMovie
 
 class DetailActivity : AppCompatActivity() {
 
