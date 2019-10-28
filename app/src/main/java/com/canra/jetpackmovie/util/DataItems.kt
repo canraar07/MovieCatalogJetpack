@@ -1,8 +1,9 @@
 package com.canra.jetpackmovie.util
 
 data class DataItems (
-    val id : String?,
-    val name : String?,
+    val title : String?,
     val img : String?,
-    val type : String?
+    val overview : String?,
+    val vote_average: String?,
+    val release_date: String?
 )

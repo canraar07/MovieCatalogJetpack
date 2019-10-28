@@ -49,11 +49,11 @@ class AdapterMainActivity : RecyclerView.Adapter<AdapterMainActivity.GridViewHol
                     .load("https://image.tmdb.org/t/p/w780${data.img}")
                     .into(image_template)
 
-                text_template.text = data.name
+                text_template.text = data.title
                 itemView.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putString("id",data.id)
-                    bundle.putString("type",data.type)
+                   /* bundle.putString("id",data.id)
+                    bundle.putString("type",data.type)*/
                     val intent = Intent(context,DetailActivity::class.java)
                     intent.putExtras(bundle)
                     context.startActivity(intent)

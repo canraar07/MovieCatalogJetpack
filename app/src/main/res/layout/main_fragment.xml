@@ -34,6 +34,7 @@
         style="@style/SpinKitView.DoubleBounce"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:visibility="invisible"
         android:layout_gravity="center"
         app:SpinKit_Color="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
