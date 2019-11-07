@@ -69,11 +69,23 @@ class MainFragment : Fragment() {
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListMovie()
+                                viewModel.dataObserver().observe(this@MainFragment, Observer<ArrayList<DataItems>> {datalist ->
+                                    if(datalist != null){
+                                        adapter.setData(datalist)
+                                        showLoading(false)
+                                    }
+                                })
                             }
                             1 -> {
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListTv()
+                                viewModel.dataObserver().observe(this@MainFragment, Observer<ArrayList<DataItems>> {datalist ->
+                                    if(datalist != null){
+                                        adapter.setData(datalist)
+                                        showLoading(false)
+                                    }
+                                })
 
                             }
                         }
