@@ -11,6 +11,15 @@ data class ResponseMovieModel(
     val image: String?,
 
     @SerializedName("id")
-    val id : String?
+    val id : String?,
+
+    @SerializedName("overview")
+    val overview : String?,
+
+    @SerializedName("vote_average")
+    val vote_Average: String?,
+
+    @SerializedName("release_date")
+    val release_Date: String?
 
 )
