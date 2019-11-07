@@ -1,7 +1,9 @@
 package com.canra.jetpackmovie.ui.main
 
+import android.database.ContentObserver
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.canra.jetpackmovie.dumydata.DataDumy
 import com.canra.jetpackmovie.util.DataItems
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlin.properties.Delegates
 
 class MainFragment : Fragment() {
 
@@ -41,8 +44,8 @@ class MainFragment : Fragment() {
         adapter = AdapterMainActivity()
         adapter.dataClear()
         viewModel.getListMovie()
-        viewModel.getData().observe(this, Observer<ArrayList<DataItems>> {datalist ->
-            if(datalist != null){
+        viewModel.dataObserver().observe(this, Observer<ArrayList<DataItems>> {datalist ->
+           if(datalist != null){
                 adapter.setData(datalist)
                 showLoading(false)
             }
@@ -64,11 +67,13 @@ class MainFragment : Fragment() {
                         when (it.position) {
                             0 -> {
                                 adapter.dataClear()
-                                adapter.setData(viewModel.getDumyMovie())
+                                showLoading(true)
+                                viewModel.getListMovie()
                             }
                             1 -> {
                                 adapter.dataClear()
-                                adapter.setData(viewModel.getDumyTv())
+                                showLoading(true)
+                                viewModel.getListTv()
 
                             }
                         }

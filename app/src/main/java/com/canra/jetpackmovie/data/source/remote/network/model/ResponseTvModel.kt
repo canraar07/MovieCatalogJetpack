@@ -10,5 +10,14 @@ data class ResponseTvModel(
     val image: String?,
 
     @SerializedName("id")
-    val id : String?
+    val id : String?,
+
+    @SerializedName("overview")
+    val overview : String?,
+
+    @SerializedName("vote_average")
+    val vote_Average: String?,
+
+    @SerializedName("first_air_date")
+    val release_Date: String?
 )
