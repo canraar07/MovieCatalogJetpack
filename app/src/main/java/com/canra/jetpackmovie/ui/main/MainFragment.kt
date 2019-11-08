@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.canra.jetpackmovie.R
 import com.canra.jetpackmovie.adapter.AdapterMainActivity
 import com.canra.jetpackmovie.dumydata.DataDumy
+import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
 import com.canra.jetpackmovie.util.DataItems
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -43,11 +44,16 @@ class MainFragment : Fragment() {
         dataDumy = DataDumy()
         adapter = AdapterMainActivity()
         adapter.dataClear()
+        EsspresoIdlingResource.increment()
         viewModel.getListMovie()
         viewModel.dataObserver().observe(this, Observer<ArrayList<DataItems>> {datalist ->
            if(datalist != null){
                 adapter.setData(datalist)
                 showLoading(false)
+               if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
+                   //Memberitahukan bahwa tugas sudah selesai dijalankan
+                   EsspresoIdlingResource.decrement()
+               }
             }
         })
         recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
@@ -66,6 +72,7 @@ class MainFragment : Fragment() {
                     if (it != null) {
                         when (it.position) {
                             0 -> {
+                                EsspresoIdlingResource.increment()
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListMovie()
@@ -73,10 +80,15 @@ class MainFragment : Fragment() {
                                     if(datalist != null){
                                         adapter.setData(datalist)
                                         showLoading(false)
+                                        if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
+                                            //Memberitahukan bahwa tugas sudah selesai dijalankan
+                                            EsspresoIdlingResource.decrement()
+                                        }
                                     }
                                 })
                             }
                             1 -> {
+                                EsspresoIdlingResource.increment()
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListTv()
@@ -84,6 +96,10 @@ class MainFragment : Fragment() {
                                     if(datalist != null){
                                         adapter.setData(datalist)
                                         showLoading(false)
+                                        if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
+                                            //Memberitahukan bahwa tugas sudah selesai dijalankan
+                                            EsspresoIdlingResource.decrement()
+                                        }
                                     }
                                 })
 

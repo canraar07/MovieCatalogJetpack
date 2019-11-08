@@ -40,6 +40,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun dataObserver() : LiveData<ArrayList<DataItems>> {
+        movieJetpackRepository= MovieJetpackRepository()
         return movieJetpackRepository.getData()
     }
 

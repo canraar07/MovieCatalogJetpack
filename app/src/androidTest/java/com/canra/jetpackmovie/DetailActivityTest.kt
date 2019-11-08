@@ -5,15 +5,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,6 +29,16 @@ class DetailActivityTest {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EsspresoIdlingResource.getEspressoIdlingResourcey())
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EsspresoIdlingResource.getEspressoIdlingResourcey())
+    }
 
     @Test
     fun detailActivityTest() {
@@ -43,10 +57,9 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-        Thread.sleep(5000)
+
         itemMovie.perform(click())
 
-        Thread.sleep(3000)
         pressBack()
 
         val tabView = onView(
@@ -62,7 +75,6 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-        Thread.sleep(3000)
         tabView.perform(click())
 
         val itemTvshow = onView(
@@ -80,9 +92,7 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-        Thread.sleep(5000)
         itemTvshow.perform(click())
-        Thread.sleep(5000)
     }
 
     private fun childAtPosition(
