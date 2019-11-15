@@ -75,31 +75,12 @@ class MainFragment : Fragment() {
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListMovie()
-                                viewModel.dataObserver().observe(this@MainFragment, Observer<ArrayList<DataItems>> {datalist ->
-                                    if(datalist != null){
-                                        adapter.setData(datalist)
-                                        showLoading(false)
-                                        if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
-                                            EsspresoIdlingResource.decrement()
-                                        }
-                                    }
-                                })
                             }
                             1 -> {
                                 EsspresoIdlingResource.increment()
                                 adapter.dataClear()
                                 showLoading(true)
                                 viewModel.getListTv()
-                                viewModel.dataObserver().observe(this@MainFragment, Observer<ArrayList<DataItems>> {datalist ->
-                                    if(datalist != null){
-                                        adapter.setData(datalist)
-                                        showLoading(false)
-                                        if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
-                                            EsspresoIdlingResource.decrement()
-                                        }
-                                    }
-                                })
-
                             }
                         }
                     }

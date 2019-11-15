@@ -5,5 +5,7 @@ data class DataItems (
     val img : String?,
     val overview : String?,
     val vote_average: String?,
-    val release_date: String?
+    val release_date: String?,
+    val type : String?,
+    val id : String?
 )

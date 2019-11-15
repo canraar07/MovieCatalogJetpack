@@ -10,20 +10,14 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_activity)
 
-        val img = intent.extras?.getString("img")
-        val title = intent.extras?.getString("title")
-        val overview = intent.extras?.getString("overview")
-        val release_date = intent.extras?.getString("release_date")
-        val vote_average = intent.extras?.getString("vote_average")
+        val id = intent.extras?.getString("id")
+        val type = intent.extras?.getString("type")
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, DetailFragment.newInstance(
-                    img,
-                    title,
-                    overview,
-                    release_date,
-                    vote_average
+                    id!!,
+                    type!!
                     ))
                 .commitNow()
         }
