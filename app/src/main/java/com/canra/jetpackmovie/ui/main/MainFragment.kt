@@ -51,7 +51,6 @@ class MainFragment : Fragment() {
                 adapter.setData(datalist)
                 showLoading(false)
                if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
-                   //Memberitahukan bahwa tugas sudah selesai dijalankan
                    EsspresoIdlingResource.decrement()
                }
             }
@@ -81,7 +80,6 @@ class MainFragment : Fragment() {
                                         adapter.setData(datalist)
                                         showLoading(false)
                                         if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
-                                            //Memberitahukan bahwa tugas sudah selesai dijalankan
                                             EsspresoIdlingResource.decrement()
                                         }
                                     }
@@ -97,7 +95,6 @@ class MainFragment : Fragment() {
                                         adapter.setData(datalist)
                                         showLoading(false)
                                         if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
-                                            //Memberitahukan bahwa tugas sudah selesai dijalankan
                                             EsspresoIdlingResource.decrement()
                                         }
                                     }

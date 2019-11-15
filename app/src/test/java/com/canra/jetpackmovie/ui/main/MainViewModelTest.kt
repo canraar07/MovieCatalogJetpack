@@ -10,6 +10,7 @@ import org.junit.Test
 import org.junit.Rule
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import junit.framework.Assert.assertNotNull
 import org.junit.rules.TestRule
 import org.mockito.Mockito.*
 
@@ -36,6 +37,7 @@ class MainViewModelTest {
         `when`(movieJetpackRepository.getData()).thenReturn(value)
        val observer = mock(Observer::class.java) as Observer<ArrayList<DataItems>>
        movieJetpackRepository.getData().observeForever(observer)
+       assertNotNull(observer)
        verify(observer).onChanged(dumyData)
     }
 
@@ -48,6 +50,7 @@ class MainViewModelTest {
         `when`(movieJetpackRepository.getData()).thenReturn(value)
         val observer = mock(Observer::class.java) as Observer<ArrayList<DataItems>>
         movieJetpackRepository.getData().observeForever(observer)
+        assertNotNull(observer)
         verify(observer).onChanged(dumyData)
     }
 }
