@@ -249,20 +249,5 @@ class DataDumy {
         return  detailMovie
     }
 
-    fun generetDumyDetailTV() : ArrayList<ResponseDetailModel> {
-        val detailTV = ArrayList<ResponseDetailModel>()
-        detailTV.add(
-            ResponseDetailModel(
-                "Joker TV",
-                "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
-                "/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
-                8.toFloat(),
-                "2019-10-02",
-                "akslakd"
-            )
-        )
-        return  detailTV
-    }
-
 
 }
