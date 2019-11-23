@@ -1,40 +1,32 @@
 package com.canra.jetpackmovie.data.source
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDao
-import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
+import java.util.concurrent.Executor
 
-class FavoritRepository {
-    private var favoritDao : FavoritDao? = null
-    private var executorService: ExecutorService? = null
+class FavoritRepository (
+    val favoritDao: FavoritDao,
+    val executorService: Executor
+){
 
-    fun FavoritRepository(application: Application){
-        executorService = Executors.newSingleThreadExecutor()
-
-        val db = FavoritDatabase.getInstance(application)
-        favoritDao = db.FavoritDao()
-    }
 
     fun getAllFavorit() : LiveData<List<Favorit>> {
-        return favoritDao!!.getAllFavorit()
+        return favoritDao.getAllFavorit()
     }
 
     fun insert(favorit: Favorit){
-        executorService?.execute(object : Runnable{
+        executorService.execute(object : Runnable{
             override fun run() {
-                favoritDao?.insert(favorit)
+                favoritDao.insert(favorit)
             }
         })
     }
 
     fun delet(favorit: Favorit){
-        executorService?.execute(object  : Runnable{
+        executorService.execute(object  : Runnable{
             override fun run() {
-                favoritDao?.delet(favorit)
+                favoritDao.delet(favorit)
             }
 
         })

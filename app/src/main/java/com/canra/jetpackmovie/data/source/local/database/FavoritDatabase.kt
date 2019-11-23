@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import java.util.concurrent.Callable
 
 @Database(entities = [Favorit::class],version = 1 )
 abstract class FavoritDatabase : RoomDatabase(){

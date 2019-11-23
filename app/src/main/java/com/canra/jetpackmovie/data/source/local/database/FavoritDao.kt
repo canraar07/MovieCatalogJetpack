@@ -9,14 +9,10 @@ interface FavoritDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(favorit: Favorit)
 
-    @Update
-    fun update(favorit: Favorit)
-
     @Delete
     fun delet(favorit: Favorit)
 
-    @Query("SELECT * from favorit ORDER BY id ASC")
+    @Query("SELECT * from fav_movie")
     fun getAllFavorit() : LiveData<List<Favorit>>
-
 
 }

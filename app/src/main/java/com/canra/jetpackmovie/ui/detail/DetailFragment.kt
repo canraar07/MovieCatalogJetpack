@@ -1,7 +1,9 @@
 package com.canra.jetpackmovie.ui.detail
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +51,8 @@ class DetailFragment : Fragment() {
         val id = arguments?.getString("id")
         val typ = arguments?.getString("typ")
         EsspresoIdlingResource.increment()
+        this.context?.let { viewModel.setDataBase(it) }
+        this.context?.let { cekFavorit(id.toString(), it) }
         if(typ == "MOVIE"){
             spin_loading_detail.isVisible = true
             scroll_view.isVisible = false
@@ -80,7 +84,7 @@ class DetailFragment : Fragment() {
                 if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
                     EsspresoIdlingResource.decrement()
                 }
-                favorit = Favorit(id,dataDetail[0].title,dataDetail[0].poster,
+                favorit = Favorit(id?.toInt(),dataDetail[0].title,dataDetail[0].poster,
                     dataDetail[0].vote.toString(),dataDetail[0].releaseDate)
             }
         })
@@ -95,6 +99,31 @@ class DetailFragment : Fragment() {
                     .into(imageFavorit)
             }
         }
+
+        bDelet.setOnClickListener {
+            viewModel.deletFavorit(favorit)
+        }
+    }
+
+    fun cekFavorit(id: String, context: Context){
+        viewModel.getFavorit().observe(this, Observer <List<Favorit>>{list ->
+            if(list != null){
+                val data = list.indices
+                for(i in data){
+                    val idDb = list[i].id.toString()
+                    if(id == idDb){
+                        Glide.with(context)
+                            .load(R.drawable.staron)
+                            .into(imageFavorit)
+                    }else{
+                        Glide.with(context)
+                            .load(R.drawable.starof)
+                            .into(imageFavorit)
+                    }
+                }
+            }
+            Log.e("list",list.toString())
+        })
     }
 
 }
