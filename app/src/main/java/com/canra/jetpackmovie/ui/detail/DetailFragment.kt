@@ -106,24 +106,7 @@ class DetailFragment : Fragment() {
     }
 
     fun cekFavorit(id: String, context: Context){
-        viewModel.getFavorit().observe(this, Observer <List<Favorit>>{list ->
-            if(list != null){
-                val data = list.indices
-                for(i in data){
-                    val idDb = list[i].id.toString()
-                    if(id == idDb){
-                        Glide.with(context)
-                            .load(R.drawable.staron)
-                            .into(imageFavorit)
-                    }else{
-                        Glide.with(context)
-                            .load(R.drawable.starof)
-                            .into(imageFavorit)
-                    }
-                }
-            }
-            Log.e("list",list.toString())
-        })
+
     }
 
 }

@@ -1,8 +1,12 @@
 package com.canra.jetpackmovie.data.source
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.canra.jetpackmovie.data.source.local.database.Favorit
+import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
 import com.canra.jetpackmovie.data.source.remote.network.BaseAPi
 import com.canra.jetpackmovie.data.source.remote.network.model.ResponseDetailModel
 import com.canra.jetpackmovie.data.source.remote.network.response.ResponseDetailMovie
@@ -13,11 +17,13 @@ import com.canra.jetpackmovie.network.ApiEndpoind
 import com.canra.jetpackmovie.util.DataItems
 import retrofit2.Call
 import retrofit2.Response
+import java.util.concurrent.Executors
 
 class MovieJetpackRepository : MovieJetpackDataSource {
 
     var datalist = MutableLiveData<ArrayList<DataItems>>()
     var dataDetail = MutableLiveData<ArrayList<ResponseDetailModel>>()
+    lateinit var favoritRepository : FavoritRepository
 
     override fun getMovieList(language: String): ArrayList<DataItems> {
         val listItems = ArrayList<DataItems>()
@@ -189,5 +195,40 @@ class MovieJetpackRepository : MovieJetpackDataSource {
 
     fun getDataDetail(): LiveData<ArrayList<ResponseDetailModel>> {
         return dataDetail
+    }
+
+    fun setDataBase(context : Context){
+        val db = FavoritDatabase.getInstance(context)
+        favoritRepository = FavoritRepository(db.FavoritDao(), Executors.newSingleThreadExecutor())
+    }
+
+    fun getDataFavorit() :  LiveData<List<Favorit>>  {
+        return favoritRepository.getAllFavorit()
+    }
+
+    fun setDataFavoritShow(favorit : List<Favorit>){
+        val listItems = ArrayList<DataItems>()
+        val favoritdata = favorit.indices
+        for(i in favoritdata){
+            val name = favorit[i].title
+            val image = favorit[i].poster
+            val overview = ""
+            val vote = favorit[i].vote
+            val release = favorit[i].releaseDate
+            val id =  favorit[i].id.toString()
+            val type = "Favorit"
+            listItems.add(
+                DataItems(
+                    name,
+                    image,
+                    overview,
+                    vote,
+                    release,
+                    type,
+                    id
+                )
+            )
+        }
+        datalist.postValue(listItems)
     }
 }
