@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.canra.jetpackmovie.R
+import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.remote.network.model.ResponseDetailModel
 import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
 import kotlinx.android.synthetic.main.detail_fragment.*
@@ -40,7 +42,7 @@ class DetailFragment : Fragment() {
     ): View {
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
-
+    private lateinit var favorit : Favorit
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
@@ -78,8 +80,21 @@ class DetailFragment : Fragment() {
                 if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
                     EsspresoIdlingResource.decrement()
                 }
+                favorit = Favorit(id,dataDetail[0].title,dataDetail[0].poster,
+                    dataDetail[0].vote.toString(),dataDetail[0].releaseDate)
             }
         })
+
+        imageFavorit.setOnClickListener {
+            viewModel.saveFavorit(favorit)
+            Toast.makeText(context,"Save $favorit",Toast.LENGTH_LONG).show()
+            val myContext = this.context
+            if (myContext != null) {
+                Glide.with(myContext)
+                    .load(R.drawable.staron)
+                    .into(imageFavorit)
+            }
+        }
     }
 
 }

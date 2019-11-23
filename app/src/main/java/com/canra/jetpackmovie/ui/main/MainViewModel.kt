@@ -33,5 +33,4 @@ class MainViewModel : ViewModel() {
         return movieJetpackRepository.getData()
     }
 
-
 }
