@@ -30,6 +30,17 @@
             android:text="@string/tvshow" />
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyleviefavorit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="50dp"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="112dp" />
+
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/spin_loading"
         style="@style/SpinKitView.DoubleBounce"
@@ -63,4 +74,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

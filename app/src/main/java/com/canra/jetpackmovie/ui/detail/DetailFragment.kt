@@ -85,7 +85,7 @@ class DetailFragment : Fragment() {
                     EsspresoIdlingResource.decrement()
                 }
                 favorit = Favorit(id?.toInt(),dataDetail[0].title,dataDetail[0].poster,
-                    dataDetail[0].vote.toString(),dataDetail[0].releaseDate)
+                    dataDetail[0].vote.toString(),dataDetail[0].releaseDate,typ)
             }
         })
 

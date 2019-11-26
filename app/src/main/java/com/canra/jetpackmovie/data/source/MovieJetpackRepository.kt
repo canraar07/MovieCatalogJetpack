@@ -14,6 +14,7 @@ import com.canra.jetpackmovie.data.source.remote.network.response.ResponseDetail
 import com.canra.jetpackmovie.data.source.remote.network.response.ResponseMovie
 import com.canra.jetpackmovie.data.source.remote.network.response.ResponseTv
 import com.canra.jetpackmovie.network.ApiEndpoind
+import com.canra.jetpackmovie.util.DataFavorit
 import com.canra.jetpackmovie.util.DataItems
 import retrofit2.Call
 import retrofit2.Response
@@ -24,6 +25,7 @@ class MovieJetpackRepository : MovieJetpackDataSource {
     var datalist = MutableLiveData<ArrayList<DataItems>>()
     var dataDetail = MutableLiveData<ArrayList<ResponseDetailModel>>()
     lateinit var favoritRepository : FavoritRepository
+    var dataFavorit = MutableLiveData<ArrayList<DataFavorit>>()
 
     override fun getMovieList(language: String): ArrayList<DataItems> {
         val listItems = ArrayList<DataItems>()
@@ -129,6 +131,10 @@ class MovieJetpackRepository : MovieJetpackDataSource {
         return datalist
     }
 
+    fun getDataLiveavorit(): LiveData<ArrayList<DataFavorit>> {
+        return dataFavorit
+    }
+
     override fun getDetailMovie (id: String, lang: String) {
         val data = ArrayList<ResponseDetailModel>()
         BaseAPi.creatService(ApiEndpoind::class.java)
@@ -207,7 +213,7 @@ class MovieJetpackRepository : MovieJetpackDataSource {
     }
 
     fun setDataFavoritShow(favorit : List<Favorit>){
-        val listItems = ArrayList<DataItems>()
+        val listItems = ArrayList<DataFavorit>()
         val favoritdata = favorit.indices
         for(i in favoritdata){
             val name = favorit[i].title
@@ -216,9 +222,9 @@ class MovieJetpackRepository : MovieJetpackDataSource {
             val vote = favorit[i].vote
             val release = favorit[i].releaseDate
             val id =  favorit[i].id.toString()
-            val type = "Favorit"
+            val type = favorit[i].type
             listItems.add(
-                DataItems(
+                DataFavorit(
                     name,
                     image,
                     overview,
@@ -229,6 +235,6 @@ class MovieJetpackRepository : MovieJetpackDataSource {
                 )
             )
         }
-        datalist.postValue(listItems)
+        dataFavorit.postValue(listItems)
     }
 }

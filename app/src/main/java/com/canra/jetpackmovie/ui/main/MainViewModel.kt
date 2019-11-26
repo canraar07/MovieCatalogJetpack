@@ -12,6 +12,7 @@ import com.canra.jetpackmovie.data.source.MovieJetpackRepository
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
 import com.canra.jetpackmovie.dumydata.DataDumy
+import com.canra.jetpackmovie.util.DataFavorit
 import com.canra.jetpackmovie.util.DataItems
 import kotlinx.android.synthetic.main.detail_fragment.*
 import java.util.concurrent.Executors
@@ -41,6 +42,10 @@ class MainViewModel : ViewModel() {
 
     fun dataObserver() : LiveData<ArrayList<DataItems>> {
         return movieJetpackRepository.getData()
+    }
+
+    fun dataObserverFavorit() : LiveData<ArrayList<DataFavorit>> {
+        return movieJetpackRepository.getDataLiveavorit()
     }
 
     fun setDataBaseViemModel(context : Context){

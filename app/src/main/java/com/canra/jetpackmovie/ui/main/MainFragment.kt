@@ -13,10 +13,12 @@ import androidx.core.view.marginTop
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.canra.jetpackmovie.R
+import com.canra.jetpackmovie.adapter.AdapterListFavorit
 import com.canra.jetpackmovie.adapter.AdapterMainActivity
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.dumydata.DataDumy
 import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
+import com.canra.jetpackmovie.util.DataFavorit
 import com.canra.jetpackmovie.util.DataItems
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
@@ -31,8 +33,10 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: AdapterMainActivity
+    private lateinit var  adapterFavorit: AdapterListFavorit
     private lateinit var dataDumy: DataDumy
-    private var position: String = "movie"
+    private var typeFavorit: String = "MOVIE"
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,7 @@ class MainFragment : Fragment() {
         this.context?.let { viewModel.setDataBaseViemModel(it) }
         dataDumy = DataDumy()
         adapter = AdapterMainActivity()
+        adapterFavorit = AdapterListFavorit()
         adapter.dataClear()
         EsspresoIdlingResource.increment()
         viewModel.getListMovie()
@@ -60,8 +65,20 @@ class MainFragment : Fragment() {
                }
             }
         })
+        viewModel.dataObserverFavorit().observe(this, Observer<ArrayList<DataFavorit>> { dataFavorit ->
+            if(dataFavorit != null){
+                EsspresoIdlingResource.increment()
+                adapterFavorit.setDataFavorit(dataFavorit,typeFavorit)
+                if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
+                    EsspresoIdlingResource.decrement()
+                }
+            }
+
+        })
         recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
         recyleviewmenu.adapter = adapter
+        recyleviefavorit.layoutManager = GridLayoutManager(this.activity,2)
+        recyleviefavorit.adapter = adapterFavorit
         val navigationMenu = BottomNavigationView.OnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_movie -> {
@@ -69,26 +86,30 @@ class MainFragment : Fragment() {
                     adapter.dataClear()
                     showLoading(true)
                     tabmenu.isVisible = false
+                    recyleviewmenu.isVisible=true
+                    recyleviefavorit.isVisible=false
                     viewModel.getListMovie()
-                    position = "movie"
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_tv -> {EsspresoIdlingResource.increment()
                     adapter.dataClear()
                     showLoading(true)
                     tabmenu.isVisible = false
+                    recyleviewmenu.isVisible=true
+                    recyleviefavorit.isVisible=false
                     viewModel.getListTv()
-                    position = "tv"
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_Favorit -> {
-                    adapter.dataClear()
+                    adapterFavorit.dataClear()
                     tabmenu.isVisible = true
+                    recyleviewmenu.isVisible=false
+                    recyleviefavorit.isVisible=true
+                    typeFavorit = "MOVIE"
                     viewModel.getDataFavorit().observe(this,Observer<List<Favorit>>{
                         data ->
                         viewModel.setDataFavoritShow(data)
                     })
-                    position = "favorit"
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -109,10 +130,10 @@ class MainFragment : Fragment() {
                     if (it != null) {
                         when (it.position) {
                             0 -> {
-
+                                typeFavorit = "MOVIE"
                             }
                             1 -> {
-
+                                typeFavorit = "TV"
                             }
                         }
                     }

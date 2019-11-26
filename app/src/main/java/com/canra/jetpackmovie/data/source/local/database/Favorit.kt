@@ -24,5 +24,9 @@ data class Favorit (
     var vote : String?,
 
     @ColumnInfo(name = "releaseDate")
-    var releaseDate : String?
+    var releaseDate : String?,
+
+    @ColumnInfo(name = "type")
+    var type : String?
+
 ) : Parcelable
