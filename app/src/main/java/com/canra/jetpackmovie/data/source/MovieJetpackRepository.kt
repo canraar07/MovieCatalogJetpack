@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
+import com.canra.jetpackmovie.data.source.local.database.FavoritTv
 import com.canra.jetpackmovie.data.source.remote.network.BaseAPi
 import com.canra.jetpackmovie.data.source.remote.network.model.ResponseDetailModel
 import com.canra.jetpackmovie.data.source.remote.network.response.ResponseDetailMovie
@@ -212,7 +213,37 @@ class MovieJetpackRepository : MovieJetpackDataSource {
         return favoritRepository.getAllFavorit()
     }
 
+    fun getDataFavoritTv() :  LiveData<List<FavoritTv>>  {
+        return favoritRepository.getAllFavoritTv()
+    }
+
     fun setDataFavoritShow(favorit : List<Favorit>){
+        val listItems = ArrayList<DataFavorit>()
+        val favoritdata = favorit.indices
+        for(i in favoritdata){
+            val name = favorit[i].title
+            val image = favorit[i].poster
+            val overview = ""
+            val vote = favorit[i].vote
+            val release = favorit[i].releaseDate
+            val id =  favorit[i].id.toString()
+            val type = favorit[i].type
+            listItems.add(
+                DataFavorit(
+                    name,
+                    image,
+                    overview,
+                    vote,
+                    release,
+                    type,
+                    id
+                )
+            )
+        }
+        dataFavorit.postValue(listItems)
+    }
+
+    fun setDataFavoritShowTv(favorit : List<FavoritTv>){
         val listItems = ArrayList<DataFavorit>()
         val favoritdata = favorit.indices
         for(i in favoritdata){

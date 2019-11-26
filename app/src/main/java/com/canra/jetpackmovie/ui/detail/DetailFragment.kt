@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.canra.jetpackmovie.R
 import com.canra.jetpackmovie.data.source.local.database.Favorit
+import com.canra.jetpackmovie.data.source.local.database.FavoritTv
 import com.canra.jetpackmovie.data.source.remote.network.model.ResponseDetailModel
 import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
 import kotlinx.android.synthetic.main.detail_fragment.*
@@ -45,6 +46,8 @@ class DetailFragment : Fragment() {
         return inflater.inflate(R.layout.detail_fragment, container, false)
     }
     private lateinit var favorit : Favorit
+    private lateinit var favoritTv: FavoritTv
+    var isFavorit = false
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DetailViewModel::class.java)
@@ -52,7 +55,7 @@ class DetailFragment : Fragment() {
         val typ = arguments?.getString("typ")
         EsspresoIdlingResource.increment()
         this.context?.let { viewModel.setDataBase(it) }
-        this.context?.let { cekFavorit(id.toString(), it) }
+         cekFavorit(id.toString(),typ!!)
         if(typ == "MOVIE"){
             spin_loading_detail.isVisible = true
             scroll_view.isVisible = false
@@ -84,29 +87,86 @@ class DetailFragment : Fragment() {
                 if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
                     EsspresoIdlingResource.decrement()
                 }
+                if(typ == "MOVIE"){
                 favorit = Favorit(id?.toInt(),dataDetail[0].title,dataDetail[0].poster,
                     dataDetail[0].vote.toString(),dataDetail[0].releaseDate,typ)
+                }else{
+                favoritTv = FavoritTv(id?.toInt(),dataDetail[0].title,dataDetail[0].poster,
+                    dataDetail[0].vote.toString(),dataDetail[0].releaseDate,typ)
+                }
             }
         })
 
         imageFavorit.setOnClickListener {
-            viewModel.saveFavorit(favorit)
-            Toast.makeText(context,"Save $favorit",Toast.LENGTH_LONG).show()
             val myContext = this.context
-            if (myContext != null) {
-                Glide.with(myContext)
-                    .load(R.drawable.staron)
-                    .into(imageFavorit)
-            }
-        }
+            if(isFavorit){
+                if (typ == "MOVIE"){
+                    viewModel.deletFavorit(favorit)
+                    Toast.makeText(context,"Delet $favorit",Toast.LENGTH_LONG).show()
+                }else{
+                    viewModel.deletFavoritTv(favoritTv)
+                    Toast.makeText(context,"Delet $favoritTv",Toast.LENGTH_LONG)
+                        .show()
+                }
+                if (myContext != null) {
+                    Glide.with(myContext)
+                        .load(R.drawable.starof)
+                        .into(imageFavorit)
+                }
+            }else{
 
-        bDelet.setOnClickListener {
-            viewModel.deletFavorit(favorit)
+                if (typ == "MOVIE"){
+                    viewModel.saveFavorit(favorit)
+                    Toast.makeText(context,"Save $favorit",Toast.LENGTH_LONG).show()
+                }else{
+                    viewModel.saveFavoritTv(favoritTv)
+                    Toast.makeText(context,"Save $favoritTv",Toast.LENGTH_LONG)
+                        .show()
+                }
+                if (myContext != null) {
+                    Glide.with(myContext)
+                        .load(R.drawable.staron)
+                        .into(imageFavorit)
+                }
+            }
         }
     }
 
-    fun cekFavorit(id: String, context: Context){
+    fun cekFavorit(id: String,typ : String){
+        id.toInt().let { it1 ->
+            if(typ == "MOVIE"){
+                viewModel.getFavoritMovieByid(it1).observe(this, Observer<List<Favorit>> {
+                        data ->
+                    if(data.isNotEmpty()) {
+                        val myContext = this.context
+                        if (myContext != null) {
+                            Glide.with(myContext)
+                                .load(R.drawable.staron)
+                                .into(imageFavorit)
+                        }
+                        isFavorit = true
+                    }else{
+                        isFavorit = false
+                    }
+                })
+            }else{
+                viewModel.getFavoritTvByid(it1).observe(this, Observer<List<FavoritTv>> {
+                        data ->
+                    if(data.isNotEmpty()) {
+                        val myContext = this.context
+                        if (myContext != null) {
+                            Glide.with(myContext)
+                                .load(R.drawable.staron)
+                                .into(imageFavorit)
+                        }
+                        isFavorit = true
+                    }else{
+                        isFavorit = false
+                    }
+                })
+            }
 
+        }
     }
 
 }

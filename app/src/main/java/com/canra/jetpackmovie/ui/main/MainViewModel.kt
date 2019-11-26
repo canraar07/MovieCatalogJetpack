@@ -11,6 +11,7 @@ import com.canra.jetpackmovie.data.source.FavoritRepository
 import com.canra.jetpackmovie.data.source.MovieJetpackRepository
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
+import com.canra.jetpackmovie.data.source.local.database.FavoritTv
 import com.canra.jetpackmovie.dumydata.DataDumy
 import com.canra.jetpackmovie.util.DataFavorit
 import com.canra.jetpackmovie.util.DataItems
@@ -56,8 +57,18 @@ class MainViewModel : ViewModel() {
         return movieJetpackRepository.getDataFavorit()
     }
 
+    fun getDataFavoritTv() : LiveData<List<FavoritTv>>{
+        return movieJetpackRepository.getDataFavoritTv()
+    }
+
     fun setDataFavoritShow(favorit : List<Favorit>){
         movieJetpackRepository.setDataFavoritShow(favorit)
     }
+
+    fun setDataFavoritShowTv(favorit : List<FavoritTv>){
+        movieJetpackRepository.setDataFavoritShowTv(favorit)
+    }
+
+
 
 }

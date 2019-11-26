@@ -16,6 +16,7 @@ import com.canra.jetpackmovie.R
 import com.canra.jetpackmovie.adapter.AdapterListFavorit
 import com.canra.jetpackmovie.adapter.AdapterMainActivity
 import com.canra.jetpackmovie.data.source.local.database.Favorit
+import com.canra.jetpackmovie.data.source.local.database.FavoritTv
 import com.canra.jetpackmovie.dumydata.DataDumy
 import com.canra.jetpackmovie.espreso.EsspresoIdlingResource
 import com.canra.jetpackmovie.util.DataFavorit
@@ -130,9 +131,19 @@ class MainFragment : Fragment() {
                     if (it != null) {
                         when (it.position) {
                             0 -> {
+                                viewModel.getDataFavorit().observe(this@MainFragment,
+                                    Observer<List<Favorit>>{
+                                        data ->
+                                    viewModel.setDataFavoritShow(data)
+                                })
                                 typeFavorit = "MOVIE"
                             }
                             1 -> {
+                                viewModel.getDataFavoritTv().observe(this@MainFragment,
+                                    Observer<List<FavoritTv>>{
+                                    data ->
+                                    viewModel.setDataFavoritShowTv(data)
+                                })
                                 typeFavorit = "TV"
                             }
                         }

@@ -15,4 +15,20 @@ interface FavoritDao {
     @Query("SELECT * from fav_movie")
     fun getAllFavorit() : LiveData<List<Favorit>>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertTv(favorit: FavoritTv)
+
+    @Delete
+    fun deletTv(favorit: FavoritTv)
+
+    @Query("SELECT * from fav_tv")
+    fun getAllFavoritTv() : LiveData<List<FavoritTv>>
+
+    @Query("SELECT * FROM fav_movie WHERE id=:id")
+    fun getCekDataFavoritMovie(id : Int) : LiveData<List<Favorit>>
+
+    @Query("SELECT * FROM fav_tv WHERE id=:id")
+    fun getCekDataFavoritTv(id : Int) : LiveData<List<FavoritTv>>
+
+
 }
