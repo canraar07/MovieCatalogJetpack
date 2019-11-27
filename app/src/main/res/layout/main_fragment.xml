@@ -9,7 +9,6 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabmenu"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +27,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tvshow" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fav_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorit Movie" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/fav_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favorit TV Show" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -35,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="50dp"
         android:visibility="invisible"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="157dp"
@@ -59,20 +69,9 @@
         android:id="@+id/recyleviewmenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bottomMenu"
+        android:layout_marginTop="60dp"
         app:layout_constraintTop_toBottomOf="@+id/tabmenu"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomMenu"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:menu="@menu/navigationmenu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

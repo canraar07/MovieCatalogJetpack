@@ -70,44 +70,7 @@ class MainFragment : Fragment() {
         recyleviefavorit.layoutManager = GridLayoutManager(this.activity,2)
         recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
         recyleviewmenu.adapter = adapter
-        val navigationMenu = BottomNavigationView.OnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.navigation_movie -> {
-                    EsspresoIdlingResource.increment()
-                    adapter.dataClear()
-                    showLoading(true)
-                    tabmenu.isVisible = false
-                    recyleviewmenu.isVisible=true
-                    recyleviefavorit.isVisible=false
-                    viewModel.getListMovie()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_tv -> {EsspresoIdlingResource.increment()
-                    adapter.dataClear()
-                    showLoading(true)
-                    tabmenu.isVisible = false
-                    recyleviewmenu.isVisible=true
-                    recyleviefavorit.isVisible=false
-                    viewModel.getListTv()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_Favorit -> {
-                    adapterFavorit.dataClear()
-                    tabmenu.isVisible = true
-                    recyleviewmenu.isVisible=false
-                    recyleviefavorit.isVisible=true
-                    typeFavorit = "MOVIE"
 
-                    viewModel.getPageFavoritMovie().observe(this, Observer {
-                        adapterPageFavoritMovie.submitList(it)
-                        recyleviefavorit.adapter = adapterPageFavoritMovie
-                    })
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
-        bottomMenu.setOnNavigationItemSelectedListener(navigationMenu)
         tabmenu.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
@@ -122,13 +85,33 @@ class MainFragment : Fragment() {
                     if (it != null) {
                         when (it.position) {
                             0 -> {
+                                EsspresoIdlingResource.increment()
+                                adapter.dataClear()
+                                showLoading(true)
+                                recyleviewmenu.isVisible=true
+                                recyleviefavorit.isVisible=false
+                                viewModel.getListMovie()
+                            }
+                            1 -> {
+                                EsspresoIdlingResource.increment()
+                                adapter.dataClear()
+                                showLoading(true)
+                                recyleviewmenu.isVisible=true
+                                recyleviefavorit.isVisible=false
+                                viewModel.getListTv()
+                            }
+                            2 -> {
+                                recyleviewmenu.isVisible=false
+                                recyleviefavorit.isVisible=true
                                 viewModel.getPageFavoritMovie().observe(this@MainFragment, Observer {
                                     adapterPageFavoritMovie.submitList(it)
                                     recyleviefavorit.adapter = adapterPageFavoritMovie
                                 })
                                 typeFavorit = "MOVIE"
                             }
-                            1 -> {
+                            3 -> {
+                                recyleviewmenu.isVisible=false
+                                recyleviefavorit.isVisible=true
                                 viewModel.getPageFavoritTv().observe(this@MainFragment, Observer {
                                     adapterPageFavoritTv.submitList(it)
                                     recyleviefavorit.adapter = adapterPageFavoritTv
