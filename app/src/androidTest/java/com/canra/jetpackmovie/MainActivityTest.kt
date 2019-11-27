@@ -74,6 +74,38 @@ class MainActivityTest {
         )
 
         tabViewMovie.perform(click())
+
+        val tabViewFavMovie = onView(
+            allOf(
+                withContentDescription("Favorit Movie"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.tabmenu),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+
+        tabViewFavMovie.perform(click())
+
+        val tabViewFavTv = onView(
+            allOf(
+                withContentDescription("Favorit TV Show"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.tabmenu),
+                        0
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+
+        tabViewFavTv.perform(click())
     }
 
     private fun childAtPosition(

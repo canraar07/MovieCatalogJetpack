@@ -62,14 +62,15 @@ class MainFragment : Fragment() {
            if(datalist != null){
                 adapter.setData(datalist)
                 showLoading(false)
+               recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
+               recyleviewmenu.adapter = adapter
                if (!EsspresoIdlingResource.getEspressoIdlingResourcey().isIdleNow()) {
                    EsspresoIdlingResource.decrement()
                }
             }
         })
         recyleviefavorit.layoutManager = GridLayoutManager(this.activity,2)
-        recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
-        recyleviewmenu.adapter = adapter
+
 
         tabmenu.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {

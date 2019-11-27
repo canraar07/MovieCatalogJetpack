@@ -49,7 +49,7 @@ class DetailActivityTest {
                         withId(R.id.recyleviewmenu),
                         childAtPosition(
                             withId(R.id.main),
-                            2
+                            3
                         )
                     ),
                     0
@@ -57,7 +57,6 @@ class DetailActivityTest {
                 isDisplayed()
             )
         )
-
         itemMovie.perform(click())
 
         pressBack()
@@ -84,7 +83,7 @@ class DetailActivityTest {
                         withId(R.id.recyleviewmenu),
                         childAtPosition(
                             withId(R.id.main),
-                            2
+                            3
                         )
                     ),
                     0
