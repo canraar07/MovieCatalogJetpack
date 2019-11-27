@@ -1,6 +1,7 @@
 package com.canra.jetpackmovie.data.source.local.database
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 
 @Dao
@@ -14,6 +15,9 @@ interface FavoritDao {
 
     @Query("SELECT * from fav_movie")
     fun getAllFavorit() : LiveData<List<Favorit>>
+
+    @Query("SELECT * from fav_movie")
+    fun getAllFavoritPage() : DataSource.Factory<Int, Favorit>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTv(favorit: FavoritTv)

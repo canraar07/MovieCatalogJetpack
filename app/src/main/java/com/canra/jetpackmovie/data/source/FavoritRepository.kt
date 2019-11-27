@@ -2,6 +2,7 @@ package com.canra.jetpackmovie.data.source
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDao
 import com.canra.jetpackmovie.data.source.local.database.FavoritTv
@@ -15,6 +16,10 @@ class FavoritRepository (
 
     fun getAllFavorit() : LiveData<List<Favorit>> {
         return favoritDao.getAllFavorit()
+    }
+
+    fun getAllFavoritPage() : DataSource.Factory<Int, Favorit>  {
+        return favoritDao.getAllFavoritPage()
     }
 
     fun insert(favorit: Favorit){

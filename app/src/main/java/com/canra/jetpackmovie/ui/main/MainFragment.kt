@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.canra.jetpackmovie.R
 import com.canra.jetpackmovie.adapter.AdapterListFavorit
 import com.canra.jetpackmovie.adapter.AdapterMainActivity
+import com.canra.jetpackmovie.adapter.AdapterPageFavoritMovie
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritTv
 import com.canra.jetpackmovie.dumydata.DataDumy
@@ -37,6 +38,9 @@ class MainFragment : Fragment() {
     private lateinit var  adapterFavorit: AdapterListFavorit
     private lateinit var dataDumy: DataDumy
     private var typeFavorit: String = "MOVIE"
+    private val adapterPageFavoritMovie : AdapterPageFavoritMovie by lazy {
+        AdapterPageFavoritMovie()
+    }
 
 
     override fun onCreateView(
@@ -66,7 +70,7 @@ class MainFragment : Fragment() {
                }
             }
         })
-        viewModel.dataObserverFavorit().observe(this, Observer<ArrayList<DataFavorit>> { dataFavorit ->
+       /* viewModel.dataObserverFavorit().observe(this, Observer<ArrayList<DataFavorit>> { dataFavorit ->
             if(dataFavorit != null){
                 EsspresoIdlingResource.increment()
                 adapterFavorit.setDataFavorit(dataFavorit,typeFavorit)
@@ -75,11 +79,9 @@ class MainFragment : Fragment() {
                 }
             }
 
-        })
+        })*/
         recyleviewmenu.layoutManager = GridLayoutManager(this.activity, 2)
         recyleviewmenu.adapter = adapter
-        recyleviefavorit.layoutManager = GridLayoutManager(this.activity,2)
-        recyleviefavorit.adapter = adapterFavorit
         val navigationMenu = BottomNavigationView.OnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_movie -> {
@@ -107,9 +109,14 @@ class MainFragment : Fragment() {
                     recyleviewmenu.isVisible=false
                     recyleviefavorit.isVisible=true
                     typeFavorit = "MOVIE"
-                    viewModel.getDataFavorit().observe(this,Observer<List<Favorit>>{
+                   /* viewModel.getDataFavorit().observe(this,Observer<List<Favorit>>{
                         data ->
                         viewModel.setDataFavoritShow(data)
+                    })*/
+                    viewModel.getPageFavoritMovie().observe(this, Observer {
+                        adapterPageFavoritMovie.submitList(it)
+                        recyleviefavorit.layoutManager = GridLayoutManager(this.activity,2)
+                        recyleviefavorit.adapter = adapterPageFavoritMovie
                     })
                     return@OnNavigationItemSelectedListener true
                 }

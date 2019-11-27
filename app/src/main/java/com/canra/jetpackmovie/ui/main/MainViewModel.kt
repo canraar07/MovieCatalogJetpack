@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import com.bumptech.glide.Glide
 import com.canra.jetpackmovie.R
 import com.canra.jetpackmovie.data.source.FavoritRepository
@@ -67,6 +69,10 @@ class MainViewModel : ViewModel() {
 
     fun setDataFavoritShowTv(favorit : List<FavoritTv>){
         movieJetpackRepository.setDataFavoritShowTv(favorit)
+    }
+
+    fun getPageFavoritMovie() : LiveData<PagedList<Favorit>>{
+        return movieJetpackRepository.getPageMovieFavorit()
     }
 
 

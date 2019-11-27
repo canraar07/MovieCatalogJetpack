@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.canra.jetpackmovie.data.source.local.database.Favorit
 import com.canra.jetpackmovie.data.source.local.database.FavoritDatabase
 import com.canra.jetpackmovie.data.source.local.database.FavoritTv
@@ -267,5 +269,9 @@ class MovieJetpackRepository : MovieJetpackDataSource {
             )
         }
         dataFavorit.postValue(listItems)
+    }
+
+    fun getPageMovieFavorit() : LiveData<PagedList<Favorit>> {
+        return LivePagedListBuilder(favoritRepository.getAllFavoritPage(),6).build()
     }
 }
