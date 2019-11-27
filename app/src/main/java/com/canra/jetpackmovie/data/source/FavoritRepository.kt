@@ -14,12 +14,12 @@ class FavoritRepository (
 ){
 
 
-    fun getAllFavorit() : LiveData<List<Favorit>> {
-        return favoritDao.getAllFavorit()
-    }
-
     fun getAllFavoritPage() : DataSource.Factory<Int, Favorit>  {
         return favoritDao.getAllFavoritPage()
+    }
+
+    fun getAllFavoritPageTv() : DataSource.Factory<Int, FavoritTv>  {
+        return favoritDao.getAllFavoritPageTv()
     }
 
     fun insert(favorit: Favorit){
@@ -39,9 +39,6 @@ class FavoritRepository (
         })
     }
 
-    fun getAllFavoritTv() : LiveData<List<FavoritTv>> {
-        return favoritDao.getAllFavoritTv()
-    }
 
     fun insertTv(favorit: FavoritTv){
         executorService.execute(object : Runnable{
